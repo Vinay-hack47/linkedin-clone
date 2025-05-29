@@ -4,7 +4,7 @@ import PostInput from './PostInput'
 import { getAllPosts } from '@/lib/serveractions'
 
 
-const Feed = async({user}: {user:any}) => {
+const Feed = async({user}: {user:unknown}) => {
   const userData = JSON.parse(JSON.stringify(user))
   
   

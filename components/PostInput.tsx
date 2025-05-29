@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import ProfilePhoto from "./ProfilePhoto";
 import { Input } from "./ui/input";
 import { PostDialog } from "./PostDialog";
+import { User } from "@clerk/nextjs"; 
 
-const PostInput = ({ user }: { user: any }) => {
+const PostInput = ({ user }: { user: User | null }) => {
 
   const [open, setOpen] = useState(false);
 

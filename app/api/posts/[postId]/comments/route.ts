@@ -14,7 +14,7 @@ export const GET = async (req:NextRequest, {params}:{params:{postId:string}}) =>
             options:{sort:{createdAt:-1}},
         });
         return NextResponse.json(comments);
-    } catch (error: any) {
+    } catch (error: unknown) {
         // return NextResponse.json({error:'an error occurred.'});
         console.log(error);
         

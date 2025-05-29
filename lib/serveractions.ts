@@ -62,9 +62,15 @@ export const createPostAction = async (inputText: string, selectedFile: string) 
     }
     revalidatePath("/");
     
-  } catch (error:any) {
-    throw new Error(error)
+  // } catch (error:any) {
+  //   throw new Error(error );
+  // }
+  } catch (error: unknown) {
+  if (error instanceof Error) {
+    throw new Error("An error occurred while creating the post: " + error.message);
   }
+  throw new Error("An unknown error occurred while creating the post.");
+}
 }  
 
 
@@ -76,9 +82,15 @@ export const getAllPosts = async () =>{
     const posts = await Post.find().sort({createdAt: -1}).populate({path:"comments", options:{sort:{createdAt:-1}}});
     if(!posts) return [];
     return JSON.parse(JSON.stringify(posts));
-  } catch (error: any) {
-    throw new Error(error)
+  // } catch (error: any) {
+  //   throw new Error(error)
+  // }
+  } catch (error: unknown) {
+  if (error instanceof Error) {
+    throw new Error("An error occurred while creating the post: " + error.message);
   }
+  throw new Error("An unknown error occurred while creating the post.");
+}
 }
 
 
@@ -101,9 +113,15 @@ export const deletePost = async (postId:string) =>{
   try {
     await Post.deleteOne({_id:postId});
     revalidatePath("/")
-  } catch (error:any) {
-    throw new Error(error)
+  // } catch (error:any) {
+  //   throw new Error("An error occurred while deleting the post.")
+  // }
+  } catch (error: unknown) {
+  if (error instanceof Error) {
+    throw new Error("An error occurred while creating the post: " + error.message);
   }
+  throw new Error("An unknown error occurred while creating the post.");
+}
 }
 
 

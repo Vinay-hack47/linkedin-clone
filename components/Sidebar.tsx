@@ -2,8 +2,10 @@ import Image from "next/image";
 import React from "react";
 import ProfilePhoto from "./ProfilePhoto";
 import { getAllPosts } from "@/lib/serveractions";
+import { User } from "@clerk/nextjs/server"; // ✅ Server-side type
 
-const Sidebar = async ({ user }: { user: any }) => {
+
+const Sidebar = async ({ user }: { user: User | null }) => {
   const posts = await getAllPosts();
   return (
     <div className="hidden md:block w-[20%] h-fit border bordergray-300 bg-white rounded">

@@ -20,7 +20,7 @@ export function PostDialog({
   open,
   src,
 }: {
-  setOpen: any;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
   src: string;
 }) {
@@ -36,7 +36,7 @@ export function PostDialog({
     }
   };
 
-  const changeHandler = (e:any) =>{
+  const changeHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) =>{
     setInputText(e.target.value);
 
   }
@@ -70,7 +70,14 @@ export function PostDialog({
             </div>
           </DialogTitle>
         </DialogHeader>
-        <form action={postActionHandler}>
+        <form action={(formData) =>{
+          const promise = postActionHandler(formData);
+          toast.promise(promise,{
+            loading: "Creating post...",
+            success: "Post created successfully",
+            error: "Failed to create post"
+          })
+        }}>
           <div className="flex flex-col">
             <Textarea
               id="name"

@@ -101,7 +101,8 @@ const Post = ({ post }: { post: IPostDocument }) => {
                     {
                         loggedInUser && (
                             <Button onClick={() => {
-                                const res = deletePost(post._id);
+                                // const res = deletePost(post._id);
+                                 deletePost(post._id);
                             }} size={'icon'} className='rounded-full cursor-pointer' variant={'outline'}>
                                 <Trash2 />
                             </Button>
