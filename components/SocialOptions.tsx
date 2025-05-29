@@ -14,7 +14,7 @@ const SocialOptions = ({ post }: { post: IPostDocument }) => {
   const [commentOpen, setCommentOpen] = useState(false);
 
   const likeOrDislikeHandler = async () => {
-    if (!user) throw new Error(" User not athenticated");
+    if (!user) throw new Error(" User not authenticated");
     const tempLiked = liked;
     const tempLikes = likes;
     const dislike = likes?.filter((userId) => userId !== user.id);
@@ -25,7 +25,7 @@ const SocialOptions = ({ post }: { post: IPostDocument }) => {
     setLikes(newLike);
 
     const res = await fetch(
-      `/api/posts/${post._id}/${liked ? "/dislike" : "/like"}`,
+      `/api/posts/${post._id}${liked ? "/dislike" : "/like"}`,
       {
         method: "POST",
         headers: {
