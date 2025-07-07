@@ -7,6 +7,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import connectDB from "./db";
 import { revalidatePath } from "next/cache";
 import { Comment } from "@/models/comment.model";
+import { Types } from "mongoose";
+
 
   // Configuration
   cloudinary.config({ 
@@ -187,7 +189,9 @@ export const createCommentAction = async (postId: string, formData: FormData) =>
       user: userDatabase,
     });
 
-    post.comments?.push(comment?._id);
+    // post.comments?.push(comment?._id);
+post.comments?.push(new Types.ObjectId(comment._id));
+
     await post.save();
 
     revalidatePath("/");

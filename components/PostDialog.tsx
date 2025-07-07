@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
 import { readFileAsDataUrl } from "@/lib/utils";
 import { Image } from "lucide-react";
 import { createPostAction } from "@/lib/serveractions";
+import { toast } from "sonner";
 
 
 export function PostDialog({

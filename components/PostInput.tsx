@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import ProfilePhoto from "./ProfilePhoto";
 import { Input } from "./ui/input";
 import { PostDialog } from "./PostDialog";
-import { User } from "@clerk/nextjs"; 
+// import { User } from "@clerk/nextjs"; 
+import type { User } from "@clerk/backend";
+
 
 const PostInput = ({ user }: { user: User | null }) => {
 
@@ -25,7 +27,7 @@ const PostInput = ({ user }: { user: User | null }) => {
           className="rounded-full hover:bg-gray-300 h-12 cursor-pointer"
           onClick={inputHandler}
         />
-        <PostDialog setOpen={setOpen} open={open} src={user?.imageUrl}></PostDialog>
+        <PostDialog setOpen={setOpen} open={open} src={user?.imageUrl || ""}></PostDialog>
       </div>
     </div>
   );
