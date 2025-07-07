@@ -3,32 +3,30 @@ import { Post } from "@/models/post.model";
 import { NextRequest, NextResponse } from "next/server";
 
 //get likes
-export const GET = async (req:NextRequest, {params}: {params:{params:string}}) =>{
+export const GET = async (req: NextRequest, context: { params: { postId: string } }) => {
   try {
     await connectDB();
-    const post = await Post.findById({_id:params.postId});
-    if (!post) return NextResponse.json({error:"Post not found"});
+    const post = await Post.findById({ _id: context.params.postId });
+    if (!post) return NextResponse.json({ error: "Post not found" });
     return NextResponse.json(post.likes);
-  } catch (error:unknown) {
-    return NextResponse.json({error:"An error occurred."});
+  } catch (error: unknown) {
+    return NextResponse.json({ error: "An error occurred." });
     console.log(error);
   }
 }
 
 
 //post likes
-export const POST = async (req: NextRequest, {params}: {params:{postId:string}}) =>{
+export const POST = async (req: NextRequest, context: { params: { postId: string } }) => {
   try {
     await connectDB();
     const userId = await req.json();
-    const post = await Post.findById({_id:params.postId});
-    if(!post) return NextResponse.json({error:'Post not found.'});
-    await post.updateOne({$addToSet:{likes:userId}});
-    return NextResponse.json({message:"Post liked successfully."});
-    
-  } catch (error:unknown) {
-    return NextResponse.json({error:"An error occurred."});
+    const post = await Post.findById({ _id: context.params.postId });
+    if (!post) return NextResponse.json({ error: 'Post not found.' });
+    await post.updateOne({ $addToSet: { likes: userId } });
+    return NextResponse.json({ message: "Post liked successfully." });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: "An error occurred." });
     console.log(error);
-    
   }
 }
